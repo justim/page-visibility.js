@@ -1,0 +1,48 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Page visibility plugin</title>
+	</head>
+	
+	<body>
+		<h1>Page visibility plugin</h1>
+		
+		<p id="status"></p>
+		
+		<p>Try switching tabs to see the plugin in action</p>
+		
+		<fieldset>
+			<legend>Output:</legend>
+			<p id="log"></p>
+		</fieldset>
+		
+		<script src="page-visibility.js"></script>
+		<script>
+		var log = document.getElementById('log');
+		var html = '';
+		pageVisibility.addHandler(function(visible, state) {
+			var append = 'Status: ' + visible + ' (' + state + ')';
+			
+			html += append + '<br>';
+			log.innerHTML = html;
+			
+			if (console.log && typeof console.log === 'function') {
+				console.log(append);
+			}
+		});
+		
+		// give the browser some time
+		setTimeout(function() {
+			var status = document.getElementById('status');
+			
+			if (pageVisibility.supportedBrowser) {
+				status.innerHTML = 'Your browser is <strong style="color: green;">supported</strong>';
+			
+			} else {
+				status.innerHTML = 'Your browser is <strong style="color: red">NOT supported</strong>';
+			}
+		}, 111);
+		</script>
+	</body>
+</html>
